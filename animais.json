@@ -1,0 +1,22 @@
+[
+    {
+        "nome": "Lucas",
+        "especie": "Cavalo",
+        "idade": 4
+    },
+    {
+        "nome": "Lili",
+        "especie": "Cachorro",
+        "idade": 6
+    },
+    {
+        "nome": "Lolo",
+        "especie": "Esquilo",
+        "idade": 9
+    },
+    {
+        "nome": "Lala",
+        "especie": "Girafa",
+        "idade": 10
+    }
+]
