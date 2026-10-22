@@ -11,10 +11,10 @@ Criar um sistema simples para organizar informações de animais disponíveis pa
 - Remover animais
 - Editar informações dos animais
 - Salvar e recuperar dados utilizando JSON
+- Buscar animais pelo nome
 
 ## Funcionalidades planejadas
 
-- Buscar animais pelo nome
 - Registrar adoções concluídas
 
 ## Tecnologias

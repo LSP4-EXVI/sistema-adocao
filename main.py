@@ -13,6 +13,7 @@ while True:
     print("2 - Listar animais")
     print("3 - Remover animal")
     print("4 - Editar animal")
+    print("5 - Buscar animal pelo nome")
     print("0 - Sair")
 
     opcao = input("Escolha uma opção: ")
@@ -181,6 +182,27 @@ while True:
 
             print("Animal atualizado com sucesso!")
 
+    elif opcao == "5":
+        while True:
+            nome_busca = input("Digite o nome do animal que deseja buscar: ").strip().capitalize()
+
+            if nome_busca != "":
+                break
+
+            print("O nome do animal não pode ficar vazio.")
+
+        animal_encontrado = False
+
+        for animal in animais:
+            if nome_busca == animal['nome']:
+                animal_encontrado = True
+                print("Animal encontrado!")
+                print(f"Nome: {animal['nome']}")
+                print(f"Idade: {animal['idade']} ano(s)")
+                print(f"Espécie: {animal['especie']}")
+
+        if animal_encontrado == False:
+            print("Animal não encontrado.")
 
     elif opcao == "0":
         print("Encerrando o sistema...")
