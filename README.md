@@ -7,15 +7,12 @@ Criar um sistema simples para organizar informações de animais disponíveis pa
 ## Funcionalidades implementadas
 
 - Cadastrar animais
-- Listar animais cadastrados
+- Listar animais cadastrados e seus status de adoção
 - Remover animais
 - Editar informações dos animais
 - Salvar e recuperar dados utilizando JSON
-- Buscar animais pelo nome
-
-## Funcionalidades planejadas
-
-- Registrar adoções concluídas
+- Buscar animais pelo nome e consultar status
+- Registrar adoções e atualizar a disponibilidade dos animais
 
 ## Tecnologias
 

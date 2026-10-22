@@ -1,7 +1,9 @@
 import json
+from pathlib import Path
+CAMINHO_JSON = Path(__file__).resolve().parent / "animais.json"
 
 try:
-    with open("animais.json", "r", encoding="utf-8") as arquivo:
+    with open(CAMINHO_JSON, "r", encoding="utf-8") as arquivo:
         animais = json.load(arquivo)
 
 except FileNotFoundError:
@@ -14,6 +16,7 @@ while True:
     print("3 - Remover animal")
     print("4 - Editar animal")
     print("5 - Buscar animal pelo nome")
+    print("6 - Registrar adoção")
     print("0 - Sair")
 
     opcao = input("Escolha uma opção: ")
@@ -50,12 +53,13 @@ while True:
         animal = {
             "nome": nome,
             "especie": especie,
-            "idade": idade
+            "idade": idade,  
+            "disponivel": True 
       }
 
         animais.append(animal)
 
-        with open("animais.json", "w", encoding="utf-8") as arquivo:
+        with open(CAMINHO_JSON, "w", encoding="utf-8") as arquivo:
             json.dump(animais, arquivo, indent=4, ensure_ascii=False)
 
         print(f"\nAnimal {nome} cadastrado com sucesso!")
@@ -68,9 +72,15 @@ while True:
 
         else:
             for animal in animais:
+                if animal.get("disponivel", True):
+                    status = "Disponível"
+                else:
+                    status = "Adotado"
+
                 print(f"Nome: {animal['nome']}")
                 print(f"Espécie: {animal['especie']}")
                 print(f"Idade: {animal['idade']} ano(s)")
+                print(f"Status: {status}")
                 print("-" * 30)
  
     elif opcao == "3":
@@ -98,7 +108,7 @@ while True:
             indice = numero - 1
             animal_removido = animais.pop(indice)
 
-            with open("animais.json", "w", encoding="utf-8") as arquivo:
+            with open(CAMINHO_JSON, "w", encoding="utf-8") as arquivo:
                 json.dump(animais, arquivo, indent=4, ensure_ascii=False)
 
             print(f"Animal {animal_removido['nome']} removido com sucesso!")
@@ -177,7 +187,7 @@ while True:
 
                 animais[indice]['especie'] = nova_especie
 
-            with open("animais.json", "w", encoding="utf-8") as arquivo:
+            with open(CAMINHO_JSON, "w", encoding="utf-8") as arquivo:
                 json.dump(animais, arquivo, indent=4, ensure_ascii=False)
 
             print("Animal atualizado com sucesso!")
@@ -196,14 +206,61 @@ while True:
         for animal in animais:
             if nome_busca == animal['nome']:
                 animal_encontrado = True
+
+                if animal.get("disponivel", True):
+                    status = "Disponível"
+                else:
+                    status = "Adotado"
+
                 print("Animal encontrado!")
                 print(f"Nome: {animal['nome']}")
                 print(f"Idade: {animal['idade']} ano(s)")
                 print(f"Espécie: {animal['especie']}")
+                print(f"Status: {status}")
 
         if animal_encontrado == False:
             print("Animal não encontrado.")
 
+    elif opcao == "6":
+
+        animais_disponiveis = []
+
+        print("=== REGISTRAR ADOÇÃO ===\n")
+
+        print("Animais disponíveis:\n")
+
+        contador = 0
+
+        for animal in animais:  
+            if animal.get('disponivel', True):
+                animais_disponiveis.append(animal)
+                contador += 1
+                print(f"{contador} - {animal['nome']} — {animal['idade']} ano(s) ({animal['especie']})")
+
+        if contador == 0:
+          print("Nenhum animal disponível para adoção.")
+
+        else:
+            while True:
+                try:
+                    numero_adocao = int(input("Digite o numero do animal que deseja adotar: "))
+                    if numero_adocao <= contador and numero_adocao > 0:
+                        break
+
+                    print("Digite uma opção válida de adoção.")
+
+
+                except ValueError:
+                    print("Digite uma opção válida utilizando números inteiros.")
+
+            indice_adocao = numero_adocao - 1
+            animais_disponiveis[indice_adocao]['disponivel'] = False
+
+            with open(CAMINHO_JSON, "w", encoding="utf-8") as arquivo:
+                json.dump(animais, arquivo, indent=4, ensure_ascii=False)
+
+            print(f"\nO animal {animais_disponiveis[indice_adocao]['nome']} foi adotado!")
+        
     elif opcao == "0":
         print("Encerrando o sistema...")
         break
